@@ -1555,16 +1555,23 @@
 
    - `(pj/matrix fr)` -- SPLOM N^2 panels for all columns.
    - `(pj/matrix fr cols)` -- SPLOM N^2 panels for cols.
-   - `(pj/matrix fr cols {:color :c})` -- SPLOM plus aesthetic mapping."
+   - `(pj/matrix fr cols {:color :c})` -- SPLOM plus aesthetic mapping.
+   - `(pj/matrix fr cols cols) `-- SPLOM NxM panels for cols1xcols2.
+   - `(pj/matrix fr cols1 cols2 {:color :c}) `-- SPLOM NxM panels with mapping."
   ([pose-or-data]
    (let [p (->pose pose-or-data "pj/matrix")
          cols (tc/column-names (:data p))]
      (cross-matrix p cols)))
   ([pose-or-data cols]
    (multi-pair-pose pose-or-data (cross cols cols)))
-  ([pose-or-data cols mapping]
+  ([pose-or-data cols cols-or-mapping]
+   (if (map? cols-or-mapping)
+     (-> (extend-mapping pose-or-data cols-or-mapping)
+         (multi-pair-pose (cross cols cols)))
+     (multi-pair-pose pose-or-data (cross cols cols-or-mapping))))
+  ([pose-or-data xcols ycols mapping]
    (-> (extend-mapping pose-or-data mapping)
-       (multi-pair-pose (cross cols cols)))))
+       (multi-pair-pose (cross xcols ycols)))))
 
 (defn- column-refs-in-mapping
   "The keyword column references a mapping makes, in either spelling.
