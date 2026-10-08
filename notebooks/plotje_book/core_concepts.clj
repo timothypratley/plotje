@@ -358,17 +358,15 @@ two-panel
 ;; which row.
 
 (-> (rdatasets/datasets-iris)
-    (pj/pose [[:sepal-length :sepal-width] [:petal-length :petal-width]])
-    (pj/lay-point))
-
-(kind/test-last [(fn [v] (= 2 (:panels (pj/svg-summary v))))])
+    (pj/arrange [(pj/pose nil :sepal-length :sepal-width)
+                 (pj/pose nil :petal-length :petal-width)]))
 
 ;; Printed, the two-panel outcome is a composite with two sub-poses:
 
-(-> (rdatasets/datasets-iris)
-    (pj/pose [[:sepal-length :sepal-width] [:petal-length :petal-width]])
-    (pj/lay-point)
-    kind/pprint)
+(kind/pprint *1)
+
+(kind/test-last [(fn [v] (= 2 (:panels (pj/svg-summary v))))])
+
 
 (kind/test-last [(fn [v] (and (= 2 (count (:poses v)))
                               (= :sepal-length (get-in v [:poses 0 :mapping :x]))
