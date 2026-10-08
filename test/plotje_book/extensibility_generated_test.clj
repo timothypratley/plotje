@@ -334,9 +334,9 @@
   scatter-stat
   :points
   first
-  (update :xs (fn* [p1__167968#] (vec (take 3 p1__167968#))))
-  (update :ys (fn* [p1__167969#] (vec (take 3 p1__167969#))))
-  (update :row-indices (fn* [p1__167970#] (vec (take 3 p1__167970#))))))
+  (update :xs (fn* [p1__261464#] (vec (take 3 p1__261464#))))
+  (update :ys (fn* [p1__261465#] (vec (take 3 p1__261465#))))
+  (update :row-indices (fn* [p1__261466#] (vec (take 3 p1__261466#))))))
 
 
 (deftest
@@ -534,7 +534,7 @@
 
 (deftest
  t86_l684
- (is ((fn* [p1__167971#] (= :drawing-area p1__167971#)) v85_l682)))
+ (is ((fn* [p1__261467#] (= :drawing-area p1__261467#)) v85_l682)))
 
 
 (def v87_l686 (mark/mark-clip-region :rug))
@@ -542,7 +542,7 @@
 
 (deftest
  t88_l688
- (is ((fn* [p1__167972#] (= :panel-box p1__167972#)) v87_l686)))
+ (is ((fn* [p1__261468#] (= :panel-box p1__261468#)) v87_l686)))
 
 
 (def
@@ -555,7 +555,7 @@
 
 (deftest
  t92_l702
- (is ((fn* [p1__167973#] (= :panel-box p1__167973#)) v91_l700)))
+ (is ((fn* [p1__261469#] (= :panel-box p1__261469#)) v91_l700)))
 
 
 (def v94_l706 (remove-method mark/mark-clip-region :margin-glyph))

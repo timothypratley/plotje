@@ -756,7 +756,7 @@
 
 (deftest views-to-plan-test
   (let [views (-> tiny-ds
-                  (pj/pose [[:x :y]])
+                  (pj/pose :x :y)
                   pj/lay-point)
         pl (pj/plan views)]
     (is (map? pl))
@@ -771,7 +771,7 @@
 
 (deftest plan-with-color-test
   (let [ds (tc/dataset {:x [1 2 3 4] :y [1 2 3 4] :g ["a" "a" "b" "b"]})
-        views (-> ds (pj/pose [[:x :y]]) (pj/lay-point {:color :g}))
+        views (-> ds (pj/pose :x :y) (pj/lay-point {:color :g}))
         pl (pj/plan views)]
     (is (:legend pl))
     (is (= 2 (count (:entries (:legend pl)))))))
@@ -779,7 +779,7 @@
 (deftest plan-faceted-test
   (let [ds (tc/dataset {:x [1 2 3 4 5 6] :y [1 2 3 4 5 6]
                         :g ["a" "a" "b" "b" "c" "c"]})
-        views (-> ds (pj/pose [[:x :y]]) (pj/facet :g) pj/lay-point)
+        views (-> ds (pj/pose :x :y) (pj/facet :g) pj/lay-point)
         pl (pj/plan views)]
     (is (= 3 (count (:panels pl))))))
 
@@ -910,7 +910,7 @@
                             (pj/arrange [pre-rendered pre-rendered]))))))
 
 (deftest valid-plan-test
-  (let [views (-> tiny-ds (pj/pose [[:x :y]]) pj/lay-point)
+  (let [views (-> tiny-ds (pj/pose :x :y) pj/lay-point)
         pl (pj/plan views)]
     (is (pj/valid-plan? pl))))
 
@@ -958,7 +958,7 @@
   (let [iris (rdatasets/datasets-iris)
         cols [:sepal-length :sepal-width]
         size (fn [pose] (let [s (pj/svg-summary pose)] [(:width s) (:height s)]))
-        matrix (fn [] (pj/pose iris (pj/cross cols cols)))
+        matrix (fn [] (pj/cross-matrix iris cols))
         arranged (pj/arrange [(pj/lay-point iris :sepal-length :sepal-width)
                               (pj/lay-point iris :petal-length :petal-width)])]
     (try
@@ -1118,7 +1118,7 @@
 ;; ---- Config affects plan output ----
 
 (deftest config-affects-plan-test
-  (let [views (-> tiny-ds (pj/pose [[:x :y]]) pj/lay-point)]
+  (let [views (-> tiny-ds (pj/pose :x :y) pj/lay-point)]
     (testing "default width/height in plan"
       (let [s (pj/plan views)]
         (is (= 600 (:width s)))
@@ -1148,7 +1148,7 @@
 ;; ---- Config affects rendered SVG ----
 
 (deftest config-affects-render-test
-  (let [views (-> tiny-ds (pj/pose [[:x :y]]) pj/lay-point)]
+  (let [views (-> tiny-ds (pj/pose :x :y) pj/lay-point)]
     (testing "default theme bg appears in SVG"
       (let [svg (pj/plot views)
             summary (pj/svg-summary svg)]
@@ -1188,7 +1188,7 @@
   (let [ds (tc/dataset {:x [1 2 3 4 5 6]
                         :y [10 20 30 15 25 35]
                         :g ["a" "a" "a" "b" "b" "b"]})
-        views (-> ds (pj/pose [[:x :y]]) (pj/lay-point {:color :g}))]
+        views (-> ds (pj/pose :x :y) (pj/lay-point {:color :g}))]
     (testing "default palette assigns distinct colors per category"
       (let [colors (group-colors-from-plan (pj/plan views))]
         (is (= 2 (count colors))
@@ -1217,7 +1217,7 @@
 ;; ---- Config validation flag ----
 
 (deftest config-validate-flag-test
-  (let [views (-> tiny-ds (pj/pose [[:x :y]]) pj/lay-point)]
+  (let [views (-> tiny-ds (pj/pose :x :y) pj/lay-point)]
     (testing "validate true (default) -- valid plan passes"
       (is (some? (pj/plan views))))
     (testing "validate false skips schema check"
@@ -1471,7 +1471,7 @@
   (testing "cross plot (full grid) shows all strip labels"
     (let [ds (tc/dataset {:a [1 2 3 4 5] :b [5 4 3 2 1] :c [2 4 6 8 10]})
           views (-> ds
-                    (pj/pose (pj/cross [:a :b :c] [:a :b :c]))
+                    (pj/cross-matrix [:a :b :c])
                     pj/lay-point)
           svg (pj/plot views)
           s (pj/svg-summary svg)
@@ -3388,8 +3388,7 @@
 
     (testing "SPLOM inference"
       (let [s (summary (-> (pj/pose iris {:color :species})
-                           (pj/pose (pj/cross [:sepal_length :sepal_width :petal_length]
-                                              [:sepal_length :sepal_width :petal_length]))))]
+                           (pj/cross-matrix [:sepal_length :sepal_width :petal_length])))]
         (is (= 9 (:panels s)))
         (is (= 900 (:points s)))))
 

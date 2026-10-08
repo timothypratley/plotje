@@ -371,9 +371,9 @@
   (rdatasets/gapminder-gapminder)
   (tc/select-rows
    (fn*
-    [p1__166374#]
+    [p1__259870#]
     (#{"Australia" "Brazil" "Japan" "Nigeria" "Germany"}
-     (:country p1__166374#))))
+     (:country p1__259870#))))
   (pj/pose :year :life-exp {:color :country})
   pj/lay-line
   pj/lay-point
@@ -769,7 +769,7 @@
  v115_l600
  (->
   (rdatasets/gapminder-gapminder)
-  (tc/select-rows (fn* [p1__166375#] (= 2007 (:year p1__166375#))))
+  (tc/select-rows (fn* [p1__259871#] (= 2007 (:year p1__259871#))))
   (pj/lay-point :gdp-percap :life-exp {:color :continent, :size :pop})
   (pj/scale :x :log)
   (pj/options
@@ -789,9 +789,9 @@
   (rdatasets/gapminder-gapminder)
   (tc/select-rows
    (fn*
-    [p1__166376#]
+    [p1__259872#]
     (#{"Brazil" "United States" "Japan" "China" "India"}
-     (:country p1__166376#))))
+     (:country p1__259872#))))
   (pj/lay-line :year :life-exp {:color :country})
   (pj/options
    {:title "Life Expectancy Over Time",
@@ -1125,9 +1125,9 @@
   (rdatasets/ggplot2-txhousing)
   (tc/select-rows
    (fn*
-    [p1__166377#]
+    [p1__259873#]
     (#{"Houston" "Dallas" "San Antonio" "Austin"}
-     (:city p1__166377#))))
+     (:city p1__259873#))))
   (pj/pose :date :median {:color :city})
   pj/lay-line
   (pj/options
@@ -1170,7 +1170,7 @@
  (->
   (rdatasets/lme4-sleepstudy)
   (tc/select-rows
-   (fn* [p1__166378#] (= "308" (str (:subject p1__166378#)))))
+   (fn* [p1__259874#] (= "308" (str (:subject p1__259874#)))))
   (pj/pose :days :reaction)
   pj/lay-step
   pj/lay-point
@@ -1288,7 +1288,7 @@
  (->
   (tc/select-rows
    (rdatasets/gapminder-gapminder)
-   (fn* [p1__166379#] (= 2007 (:year p1__166379#))))
+   (fn* [p1__259875#] (= 2007 (:year p1__259875#))))
   (pj/lay-point
    :gdp-percap
    :life-exp
@@ -1823,8 +1823,8 @@
      [ds]
      (map
       (fn*
-       [p1__166380#]
-       (get {5 "May", 6 "Jun", 7 "Jul", 8 "Aug", 9 "Sep"} p1__166380#))
+       [p1__259876#]
+       (get {5 "May", 6 "Jun", 7 "Jul", 8 "Aug", 9 "Sep"} p1__259876#))
       (ds :month)))))))
 
 
@@ -2121,10 +2121,10 @@
 (def
  v321_l1536
  (->
-  {:row (mapcat (fn* [p1__166381#] (repeat 6 p1__166381#)) (range 6)),
+  {:row (mapcat (fn* [p1__259877#] (repeat 6 p1__259877#)) (range 6)),
    :col (flatten (repeat 6 (range 6))),
    :value
-   (map (fn* [p1__166382#] (Math/sin (* p1__166382# 0.5))) (range 36))}
+   (map (fn* [p1__259878#] (Math/sin (* p1__259878# 0.5))) (range 36))}
   (pj/pose :col :row {:fill :value})
   pj/lay-tile
   (pj/options
@@ -2559,7 +2559,7 @@
  (->
   (tc/select-rows
    (rdatasets/gapminder-gapminder)
-   (fn* [p1__166383#] (= 2007 (:year p1__166383#))))
+   (fn* [p1__259879#] (= 2007 (:year p1__259879#))))
   (pj/pose :gdp-percap :life-exp)
   pj/lay-point
   (pj/scale :x :log)

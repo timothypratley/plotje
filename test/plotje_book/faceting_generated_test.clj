@@ -202,7 +202,7 @@
      (=
       [3 1]
       (mapv
-       (fn* [p1__163953#] (count (:panels (:plan p1__163953#))))
+       (fn* [p1__257449#] (count (:panels (:plan p1__257449#))))
        (:sub-plots (pj/plan fr))))))
    v28_l163)))
 

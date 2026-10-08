@@ -301,8 +301,8 @@
    :residual
    (map
     (fn*
-     [p1__161104#]
-     (* (Math/sin p1__161104#) (Math/exp (- (/ p1__161104# 30.0)))))
+     [p1__254600#]
+     (* (Math/sin p1__254600#) (Math/exp (- (/ p1__254600# 30.0)))))
     (range 1 41))}
   (pj/lay-segment :index :residual {:y-end 0})
   (pj/lay-rule-h {:y-intercept 0})))

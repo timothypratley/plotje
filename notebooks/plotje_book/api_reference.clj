@@ -129,9 +129,10 @@
     (pj/cross-matrix [:sepal-length :petal-length]
                      {:color :species}))
 
+
 (kind/test-last [(fn [v] (let [s (pj/svg-summary v)]
                            (and (= 4 (:panels s))
-                                (= 600 (:points s)))))])
+                                (= 300 (:points s)))))])
 
 ;; ## Layer Functions
 
@@ -185,12 +186,12 @@
 (kind/test-last [(fn [v] (let [s (pj/svg-summary v)]
                            (pos? (:polygons s))))])
 
-;; A vector of columns creates one panel per column:
+;; A vector of columns creates one panel:
 
 (pj/lay-histogram (rdatasets/datasets-iris) [:sepal-length :sepal-width])
 
 (kind/test-last [(fn [v] (let [s (pj/svg-summary v)]
-                           (and (= 2 (:panels s))
+                           (and (= 1 (:panels s))
                                 (pos? (:polygons s)))))])
 
 (kind/doc #'pj/lay-bar)

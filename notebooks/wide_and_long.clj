@@ -504,26 +504,6 @@ sales-long
  [(fn [v] (let [s (pj/svg-summary v)]
             (and (= 4 (:panels s)) (= 24 (:polygons s)) (= 2 (:lines s)))))])
 
-;; ## The one combination that is missing, and why
-
-;; A grid of panels whose cells each show several series cannot be
-;; written:
-
-(try
-  (-> sales
-      (pj/pose [[:revenue :units] [:cost :units] [:tax :units]])
-      (pj/lay-point :revenue [:units :cost :tax]))
-  (catch Exception e (ex-message e)))
-
-(kind/test-last [(fn [m] (and (string? m) (re-find #"composite pose" m)))])
-
-;; The duality explains it. **The pairs grid wants the wide reading of
-;; the dataset and the series wants the long one**, and a dataset has
-;; one shape at a time. Not an arbitrary limitation. The workaround is
-;; on the long side throughout: `pj/facet` reaches the same picture
-;; where the split comes from a column, and `pj/arrange` of series
-;; poses where it does not.
-
 ;; ---
 
 ;; # Four repairs that came with it

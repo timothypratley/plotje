@@ -877,10 +877,18 @@ two-panel
 
 (kind/test-last [(fn [v] (= :species (get-in v [:mapping :col])))])
 
-;; A vector of column names creates one panel per variable:
+;; A vector of column names creates one panel:
 
 (-> (rdatasets/datasets-iris)
     (pj/lay-histogram [:sepal-length :sepal-width :petal-length]))
+
+;; Use arrange to create one panel per variable:
+
+(-> (rdatasets/datasets-iris)
+    (pj/arrange [(pj/pose nil :sepal-length)
+                 (pj/pose nil :sepal-width)
+                 (pj/pose nil :petal-length)])
+    (pj/lay-histogram))
 
 (kind/test-last [(fn [v] (= 3 (:panels (pj/svg-summary v))))])
 
