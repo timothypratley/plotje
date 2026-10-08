@@ -1590,8 +1590,8 @@
 ;; row of panels.
 
 (-> (rdatasets/ggplot2-economics)
-    (pj/arrange [(pj/pose nil :date :unemploy)
-                 (pj/pose nil :date :uempmed)])
+    (pj/arrange [[:date :unemploy]
+                 [:date :uempmed]])
     pj/lay-line
     (pj/options {:title "Unemployment: Total vs Median Duration"}))
 
@@ -1601,9 +1601,9 @@
 ;; Source: [ECharts: Multi Line](https://echarts.apache.org/examples/en/editor.html?c=line-smooth)
 
 (-> (rdatasets/ggplot2-economics)
-    (pj/arrange [(pj/pose nil :date :unemploy)
-                 (pj/pose nil :date :uempmed)
-                 (pj/pose nil :date :psavert)])
+    (pj/arrange [[:date :unemploy]
+                 [:date :uempmed]
+                 [:date :psavert]])
     pj/lay-line
     (pj/options {:title "US Economic Indicators"}))
 

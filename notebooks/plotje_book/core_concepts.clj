@@ -358,8 +358,8 @@ two-panel
 ;; which row.
 
 (-> (rdatasets/datasets-iris)
-    (pj/arrange [(pj/pose nil :sepal-length :sepal-width)
-                 (pj/pose nil :petal-length :petal-width)]))
+    (pj/arrange [[:sepal-length :sepal-width]
+                 [:petal-length :petal-width]]))
 
 ;; Printed, the two-panel outcome is a composite with two sub-poses:
 
@@ -885,9 +885,9 @@ two-panel
 ;; Use arrange to create one panel per variable:
 
 (-> (rdatasets/datasets-iris)
-    (pj/arrange [(pj/pose nil :sepal-length)
-                 (pj/pose nil :sepal-width)
-                 (pj/pose nil :petal-length)])
+    (pj/arrange [:sepal-length
+                 :sepal-width
+                 :petal-length])
     (pj/lay-histogram))
 
 (kind/test-last [(fn [v] (= 3 (:panels (pj/svg-summary v))))])

@@ -259,7 +259,7 @@
   setosa
   (tc/select-rows
    (rdatasets/datasets-iris)
-   (fn* [p1__251831#] (= "setosa" (:species p1__251831#))))))
+   (fn* [p1__265091#] (= "setosa" (:species p1__265091#))))))
 
 
 (def
@@ -268,7 +268,7 @@
   versicolor
   (tc/select-rows
    (rdatasets/datasets-iris)
-   (fn* [p1__251832#] (= "versicolor" (:species p1__251832#))))))
+   (fn* [p1__265092#] (= "versicolor" (:species p1__265092#))))))
 
 
 (def
@@ -356,8 +356,7 @@
  (->
   (rdatasets/datasets-iris)
   (pj/arrange
-   [(pj/pose nil :sepal-length :sepal-width)
-    (pj/pose nil :petal-length :petal-width)])))
+   [[:sepal-length :sepal-width] [:petal-length :petal-width]])))
 
 
 (def v65_l366 (kind/pprint *1))
@@ -911,10 +910,7 @@
  v171_l887
  (->
   (rdatasets/datasets-iris)
-  (pj/arrange
-   [(pj/pose nil :sepal-length)
-    (pj/pose nil :sepal-width)
-    (pj/pose nil :petal-length)])
+  (pj/arrange [:sepal-length :sepal-width :petal-length])
   (pj/lay-histogram)))
 
 

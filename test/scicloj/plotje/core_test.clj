@@ -3702,14 +3702,23 @@
       ;; The other half of the same flag, which is what it is for.
       (is (= 1 (count (:panels (pj/plan (pj/lay-rug ds :a)))))))))
 
-(deftest arrange-given-a-pose-where-data-goes-test
-  ;; Read as a dataset, the pose's keys were reported as its columns.
-  (let [pose (pj/lay-point {:a [1 2] :b [3 4]} :a :b)]
-    (is (thrown-with-msg? clojure.lang.ExceptionInfo
-                          #"pj/arrange was given a pose where the data goes"
-                          (pj/arrange pose [{:x :a :y :b}])))
-    (testing "the form the message names draws"
-      (is (= 2 (:panels (pj/svg-summary (pj/arrange [pose pose]))))))))
+(deftest arrange-column-cells-test
+  (let [d {:a [1 2 3] :b [4 5 6] :c [7 8 9] :d [1 3 2]}
+        summary (fn [fr] (select-keys (pj/svg-summary fr) [:panels :points]))]
+    (testing "univariate columns"
+      (is (= 3 (:panels (summary (-> (pj/arrange d [:a :b :c]) (pj/lay-histogram)))))))
+    (testing "bivariate pairs"
+      (is (= {:panels 2 :points 6}
+             (summary (-> (pj/arrange d [[:a :b] [:c :d]]) (pj/lay-point))))))
+    (testing "a pose supplies data and layers"
+      (is (= {:panels 2 :points 6}
+             (summary (pj/arrange (pj/lay-point (pj/pose d)) [[:a :b] [:c :d]])))))
+    (testing "a composite pose has panels appended"
+      (is (= 4 (:panels (summary (pj/arrange (pj/arrange d [[:a :b] [:c :d]])
+                                             [[:a :c] [:b :d]]))))))
+    (testing "mixed forms"
+      (is (= 3 (:panels (summary (-> (pj/arrange d [[(pj/pose d) :a] [:b :c] [[:a :d]]])
+                                     (pj/lay-histogram)))))))))
 
 (deftest tile-grouped-fill-follows-its-row-test
   ;; The fill values were read in row order and the tile bounds in group

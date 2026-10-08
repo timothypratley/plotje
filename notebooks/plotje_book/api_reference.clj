@@ -99,8 +99,8 @@
 ;; with one pose per pair:
 
 (-> (rdatasets/datasets-iris)
-    (pj/arrange [(pj/pose nil :sepal-length :sepal-width)
-                 (pj/pose nil :petal-length :petal-width)])
+    (pj/arrange [[:sepal-length :sepal-width]
+                 [:petal-length :petal-width]])
     (pj/lay-point {:color :species}))
 
 (kind/test-last [(fn [v] (let [s (pj/svg-summary v)]

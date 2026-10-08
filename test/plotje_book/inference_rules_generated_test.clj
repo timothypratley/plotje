@@ -246,15 +246,15 @@
     [m]
     (and
      (every?
-      (fn* [p1__253516#] (re-matches #"\d{2}:\d{2}" p1__253516#))
+      (fn* [p1__266776#] (re-matches #"\d{2}:\d{2}" p1__266776#))
       (:six-hours m))
      (every?
       (fn*
-       [p1__253517#]
-       (re-matches #"[A-Z][a-z]{2} \d{2}:\d{2}" p1__253517#))
+       [p1__266777#]
+       (re-matches #"[A-Z][a-z]{2} \d{2}:\d{2}" p1__266777#))
       (:three-days m))
      (every?
-      (fn* [p1__253518#] (re-matches #"\d{4}" p1__253518#))
+      (fn* [p1__266778#] (re-matches #"\d{4}" p1__266778#))
       (:nine-years m))
      (= 9 (count (:nine-years m)))))
    v39_l282)))

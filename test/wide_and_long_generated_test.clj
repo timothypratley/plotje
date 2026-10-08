@@ -42,16 +42,16 @@
           [xs
            (->>
             (str/split (str/trim (str (:points attrs))) #"[\s,]+")
-            (map (fn* [p1__262298#] (Double/parseDouble p1__262298#)))
+            (map (fn* [p1__264232#] (Double/parseDouble p1__264232#)))
             (partition 2)
             (map first))]
           [[(+ dx (apply min xs)) (+ dx (apply max xs))]]))]
        (into
         (vec own)
-        (mapcat (fn* [p1__262299#] (walk p1__262299# (+ dx tx))))
+        (mapcat (fn* [p1__264233#] (walk p1__264233# (+ dx tx))))
         kids))
       (sequential? node)
-      (into [] (mapcat (fn* [p1__262300#] (walk p1__262300# dx))) node)
+      (into [] (mapcat (fn* [p1__264234#] (walk p1__264234# dx))) node)
       :else
       []))]
    (vec (sort (walk (pj/plot pose {:width 600, :height 400}) 0.0))))))
@@ -115,10 +115,7 @@
  v13_l126
  (->
   sales-wide
-  (pj/arrange
-   [(pj/pose nil :quarter :revenue)
-    (pj/pose nil :quarter :cost)
-    (pj/pose nil :quarter :tax)])
+  (pj/arrange [[:quarter :revenue] [:quarter :cost] [:quarter :tax]])
   (pj/lay-point)))
 
 
@@ -138,9 +135,7 @@
        (->
         sales-wide
         (pj/arrange
-         [(pj/pose nil :quarter :revenue)
-          (pj/pose nil :quarter :cost)
-          (pj/pose nil :quarter :tax)])
+         [[:quarter :revenue] [:quarter :cost] [:quarter :tax]])
         (pj/lay-point)))
       l
       (pj/svg-summary
@@ -162,7 +157,7 @@
   y-ticks
   [pose]
   (filterv
-   (fn* [p1__262301#] (re-matches #"\d+" p1__262301#))
+   (fn* [p1__264235#] (re-matches #"\d+" p1__264235#))
    (:texts (pj/svg-summary pose)))))
 
 
@@ -191,9 +186,7 @@
       (->
        sales-wide
        (pj/arrange
-        [(pj/pose nil :quarter :revenue)
-         (pj/pose nil :quarter :cost)
-         (pj/pose nil :quarter :tax)])
+        [[:quarter :revenue] [:quarter :cost] [:quarter :tax]])
        (pj/lay-point)
        (pj/options {:scales :free}))))
     (pr-str
@@ -201,9 +194,7 @@
       (->
        sales-wide
        (pj/arrange
-        [(pj/pose nil :quarter :revenue)
-         (pj/pose nil :quarter :cost)
-         (pj/pose nil :quarter :tax)])
+        [[:quarter :revenue] [:quarter :cost] [:quarter :tax]])
        (pj/lay-point)
        (pj/options {:scales :shared}))))]]))
 
@@ -220,9 +211,7 @@
        (->
         sales-wide
         (pj/arrange
-         [(pj/pose nil :quarter :revenue)
-          (pj/pose nil :quarter :cost)
-          (pj/pose nil :quarter :tax)])
+         [[:quarter :revenue] [:quarter :cost] [:quarter :tax]])
         (pj/lay-point)
         (pj/options {:scales s})))
       facet
@@ -1030,14 +1019,14 @@
        (tree-seq sequential? seq (pj/plot v))
        (filter
         (fn*
-         [p1__262302#]
+         [p1__264236#]
          (and
-          (vector? p1__262302#)
-          (= :rect (first p1__262302#))
-          (map? (second p1__262302#))
-          (number? (:width (second p1__262302#)))
-          (> (:width (second p1__262302#)) 100))))
-       (keep (fn* [p1__262303#] (:fill (second p1__262303#))))
+          (vector? p1__264236#)
+          (= :rect (first p1__264236#))
+          (map? (second p1__264236#))
+          (number? (:width (second p1__264236#)))
+          (> (:width (second p1__264236#)) 100))))
+       (keep (fn* [p1__264237#] (:fill (second p1__264237#))))
        distinct
        vec)]
      (= ["rgb(255,255,255)" "rgb(232,232,232)"] fills)))
@@ -1060,7 +1049,7 @@
       first
       :groups
       (mapv
-       (fn* [p1__262304#] (vec (take 2 (:tooltips p1__262304#))))))])
+       (fn* [p1__264238#] (vec (take 2 (:tooltips p1__264238#))))))])
    [["a column" {:tooltip :units}]
     ["valid hiccup" {:tooltip [:b "a note"]}]])))
 

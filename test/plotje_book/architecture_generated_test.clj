@@ -76,13 +76,13 @@
       (and
        (= [:point :line] (mapv :mark layers))
        (every?
-        (fn* [p1__260806#] (= :petal-length (:x p1__260806#)))
+        (fn* [p1__274066#] (= :petal-length (:x p1__274066#)))
         layers)
        (every?
-        (fn* [p1__260807#] (= :petal-width (:y p1__260807#)))
+        (fn* [p1__274067#] (= :petal-width (:y p1__274067#)))
         layers)
        (every?
-        (fn* [p1__260808#] (= :species (:color p1__260808#)))
+        (fn* [p1__274068#] (= :species (:color p1__274068#)))
         layers)))
      (= {} (:opts d))))
    v14_l205)))
@@ -136,8 +136,8 @@
      (pos? (count (:drawables v)))
      (every?
       (fn*
-       [p1__260809#]
-       (.startsWith (.getName (class p1__260809#)) "membrane.ui."))
+       [p1__274069#]
+       (.startsWith (.getName (class p1__274069#)) "membrane.ui."))
       (:drawables v))))
    v27_l263)))
 
@@ -229,7 +229,7 @@
        2
        (count
         (filter
-         (fn* [p1__260810#] (.startsWith p1__260810# "rgb"))
+         (fn* [p1__274070#] (.startsWith p1__274070# "rgb"))
          (:colors s)))))))
    v42_l507)))
 
@@ -241,8 +241,7 @@
   (->
    (rdatasets/datasets-iris)
    (pj/arrange
-    [(pj/pose nil :petal-length :petal-width)
-     (pj/pose nil :sepal-length :sepal-width)])
+    [[:petal-length :petal-width] [:sepal-length :sepal-width]])
    (pj/pose {:color :species}))))
 
 

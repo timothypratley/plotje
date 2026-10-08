@@ -21,7 +21,7 @@
    (:layers pose)
    (update
     :layers
-    (partial mapv (fn* [p1__252759#] (dissoc p1__252759# :data))))
+    (partial mapv (fn* [p1__266019#] (dissoc p1__266019# :data))))
    (:poses pose)
    (update :poses (partial mapv strip-data)))))
 
@@ -464,7 +464,7 @@
      (= {:color :species} (:mapping pose))
      (= 2 (count (:poses pose)))
      (every?
-      (fn* [p1__252760#] (= 2 (count (:poses p1__252760#))))
+      (fn* [p1__266020#] (= 2 (count (:poses p1__266020#))))
       (:poses pose))))
    v79_l430)))
 
@@ -793,7 +793,7 @@
       (contains? (:colors s) "rgb(230,85,13)")
       (= #{"sepal length" "sepal width"} (set axis-titles))
       (not-any?
-       (fn* [p1__252761#] (re-find #"petal" p1__252761#))
+       (fn* [p1__266021#] (re-find #"petal" p1__266021#))
        (:texts s)))))
    v126_l741)))
 
@@ -1337,8 +1337,8 @@
       rule
       (some
        (fn*
-        [p1__252762#]
-        (when (= :rule-h (:layer-type p1__252762#)) p1__252762#))
+        [p1__266022#]
+        (when (= :rule-h (:layer-type p1__266022#)) p1__266022#))
        layers)]
      (and (some? rule) (= 3.0 (get-in rule [:mapping :y-intercept])))))
    v200_l1218)))
@@ -1524,8 +1524,8 @@
        [p]
        (mapv
         (fn*
-         [p1__252763#]
-         (get-in p1__252763# [:plan :panels 0 :x-domain]))
+         [p1__266023#]
+         (get-in p1__266023# [:plan :panels 0 :x-domain]))
         (:sub-plots (pj/plan p))))
       domains
       (x-domains pose)
@@ -1536,13 +1536,13 @@
         [(->
           iris
           (tc/select-rows
-           (fn* [p1__252764#] (= "setosa" (:species p1__252764#))))
+           (fn* [p1__266024#] (= "setosa" (:species p1__266024#))))
           (pj/pose :sepal-length :sepal-width)
           pj/lay-point)
          (->
           iris
           (tc/select-rows
-           (fn* [p1__252765#] (= "virginica" (:species p1__252765#))))
+           (fn* [p1__266025#] (= "virginica" (:species p1__266025#))))
           (pj/pose :sepal-length :petal-width)
           pj/lay-point)]
         (if share {:share-scales #{:x}} {})))]
@@ -1575,7 +1575,7 @@
      (= #{:y :x} (get-in pose [:opts :share-scales]))
      (= 2 (count (:poses pose)))
      (every?
-      (fn* [p1__252766#] (= 2 (count (:poses p1__252766#))))
+      (fn* [p1__266026#] (= 2 (count (:poses p1__266026#))))
       (:poses pose))
      (= {:color :species} (:mapping pose))
      (=
