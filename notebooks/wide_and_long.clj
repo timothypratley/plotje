@@ -124,7 +124,9 @@ sales-long
 ;; The same information, drawn from each shape:
 
 (-> sales-wide
-    (pj/pose [[:quarter :revenue] [:quarter :cost] [:quarter :tax]])
+    (pj/arrange [(pj/pose nil :quarter :revenue)
+                 (pj/pose nil :quarter :cost)
+                 (pj/pose nil :quarter :tax)])
     (pj/lay-point))
 
 (-> sales-long (pj/lay-point :quarter :value) (pj/facet :measure))
@@ -132,8 +134,9 @@ sales-long
 (kind/test-last
  [(fn [_]
     (let [w (pj/svg-summary (-> sales-wide
-                                (pj/pose [[:quarter :revenue] [:quarter :cost]
-                                          [:quarter :tax]])
+                                (pj/arrange [(pj/pose nil :quarter :revenue)
+                                             (pj/pose nil :quarter :cost)
+                                             (pj/pose nil :quarter :tax)])
                                 (pj/lay-point)))
           l (pj/svg-summary (-> sales-long (pj/lay-point :quarter :value)
                                 (pj/facet :measure)))]
@@ -162,18 +165,27 @@ sales-long
    (pr-str (y-ticks (-> sales-long (pj/lay-point :quarter :value) (pj/facet :measure)
                         (pj/options {:scales :shared}))))]
   ["wide side, pairs grid"
-   (pr-str (y-ticks (-> sales-wide (pj/pose [[:quarter :revenue] [:quarter :cost]
-                                             [:quarter :tax]])
-                        (pj/lay-point) (pj/options {:scales :free}))))
-   (pr-str (y-ticks (-> sales-wide (pj/pose [[:quarter :revenue] [:quarter :cost]
-                                             [:quarter :tax]])
-                        (pj/lay-point) (pj/options {:scales :shared}))))]])
+   (pr-str (y-ticks (-> sales-wide
+                        (pj/arrange [(pj/pose nil :quarter :revenue)
+                                     (pj/pose nil :quarter :cost)
+                                     (pj/pose nil :quarter :tax)])
+                        (pj/lay-point)
+                        (pj/options {:scales :free}))))
+   (pr-str (y-ticks (-> sales-wide
+                        (pj/arrange [(pj/pose nil :quarter :revenue)
+                                     (pj/pose nil :quarter :cost)
+                                     (pj/pose nil :quarter :tax)])
+                        (pj/lay-point)
+                        (pj/options {:scales :shared}))))]])
 
 (kind/test-last
  [(fn [_]
-    (let [grid (fn [s] (-> sales-wide (pj/pose [[:quarter :revenue] [:quarter :cost]
-                                                [:quarter :tax]])
-                           (pj/lay-point) (pj/options {:scales s})))
+    (let [grid (fn [s] (-> sales-wide
+                           (pj/arrange [(pj/pose nil :quarter :revenue)
+                                        (pj/pose nil :quarter :cost)
+                                        (pj/pose nil :quarter :tax)])
+                           (pj/lay-point)
+                           (pj/options {:scales s})))
           facet (fn [s] (-> sales-long (pj/lay-point :quarter :value) (pj/facet :measure)
                             (pj/options {:scales s})))]
       ;; The setting moves the long side and does nothing on the wide one.
@@ -366,17 +378,11 @@ sales-long
 
 ;; ## What is not a series
 
-;; A vector of pairs is still the multi-panel form, two parallel
-;; vectors are still paired panels, and a vector that is not column
-;; references is not columns:
+;; A vector that is not column references is not columns:
 
 (md-table
  ["written" "read as"]
- [["`(pj/lay-point data [[:q :revenue] [:q :cost]])`"
-   (str (:panels (pj/svg-summary (-> sales-wide (pj/lay-point [[:quarter :revenue]
-                                                               [:quarter :cost]]))))
-        " panels")]
-  ["`(pj/lay-point data [:revenue :cost :tax] :quarter)`"
+ [["`(pj/lay-point data [:revenue :cost :tax] :quarter)`"
    (str (:polygons (pj/svg-summary (-> sales-wide (pj/lay-bar [:revenue :cost :tax] :quarter))))
         " bars in 1 panel")]
   ["`{:stroke-dash [5 5]}`"
