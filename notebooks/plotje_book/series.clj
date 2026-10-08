@@ -1207,15 +1207,6 @@ sales-by-region
 
 ;; #### What is not a series
 
-;; A vector of `[x y]` pairs is the multi-panel form, one panel per
-;; pair:
-
-(-> sales
-    (pj/pose [[:quarter :revenue] [:quarter :cost]])
-    (pj/lay-point))
-
-(kind/test-last [(fn [v] (= 2 (:panels (pj/svg-summary v))))])
-
 ;; A vector with no other column beside it is the multi-panel form as
 ;; well: a lay-* call reads it as one column per panel, and each panel
 ;; draws its own mark.

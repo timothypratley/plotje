@@ -1550,9 +1550,37 @@
    v236_l1161)))
 
 
+(def v239_l1214 (-> sales (pj/lay-histogram [:revenue :cost])))
+
+
+(deftest
+ t240_l1217
+ (is ((fn [v] (= 2 (:panels (pj/svg-summary v)))) v239_l1214)))
+
+
 (def
- v239_l1213
+ v242_l1223
  (->
-  sales
-  (pj/pose [[:quarter :revenue] [:quarter :cost]])
-  (pj/lay-point)))
+  sales-by-region
+  (pj/lay-line :quarter :revenue {:group [:region :outlet]})))
+
+
+(deftest
+ t243_l1226
+ (is ((fn [v] (= 4 (:lines (pj/svg-summary v)))) v242_l1223)))
+
+
+(def
+ v245_l1232
+ (-> sales (pj/lay-line :quarter :revenue {:stroke-dash [5 5]})))
+
+
+(deftest
+ t246_l1235
+ (is
+  ((fn
+    [v]
+    (let
+     [s (pj/svg-summary v)]
+     (and (= 1 (:panels s)) (= 1 (count (:dash-patterns s))))))
+   v245_l1232)))
