@@ -103,8 +103,8 @@
    :value
    (map
     (fn*
-     [p1__268574#]
-     (+ 100.0 (* 30.0 (Math/sin (* (double p1__268574#) 0.12)))))
+     [p1__137555#]
+     (+ 100.0 (* 30.0 (Math/sin (* (double p1__137555#) 0.12)))))
     (range 52))}))
 
 
@@ -546,7 +546,7 @@
        :panels
        first
        :layers
-       (filter (fn* [p1__268575#] (= :text (:mark p1__268575#))))
+       (filter (fn* [p1__137556#] (= :text (:mark p1__137556#))))
        first)]
      (= :right (-> text-layer :style :align-x))))
    v75_l378)))
@@ -573,7 +573,7 @@
       :panels
       first
       :layers
-      (filter (fn* [p1__268576#] (= :text (:mark p1__268576#))))
+      (filter (fn* [p1__137557#] (= :text (:mark p1__137557#))))
       first
       :groups
       first
@@ -605,7 +605,7 @@
        [mark]
        (->>
         layers
-        (filter (fn* [p1__268577#] (= mark (:mark p1__268577#))))
+        (filter (fn* [p1__137558#] (= mark (:mark p1__137558#))))
         first
         :groups
         (mapv (juxt :label :dodge-idx))))]
@@ -662,8 +662,8 @@
  (->
   {:x (range 20),
    :y
-   (map (fn* [p1__268578#] (Math/sin (/ p1__268578# 3.0))) (range 20)),
-   :change (map (fn* [p1__268579#] (- p1__268579# 10)) (range 20))}
+   (map (fn* [p1__137559#] (Math/sin (/ p1__137559# 3.0))) (range 20)),
+   :change (map (fn* [p1__137560#] (- p1__137560# 10)) (range 20))}
   (pj/lay-point :x :y {:color :change})
   (pj/options
    {:color-range :diverging,
@@ -859,9 +859,9 @@
    (rdatasets/gapminder-gapminder)
    (tc/select-rows
     (fn*
-     [p1__268580#]
+     [p1__137561#]
      (#{"Cambodia" "Botswana" "Japan" "Rwanda" "China"}
-      (:country p1__268580#))))
+      (:country p1__137561#))))
    (tc/select-columns [:country :year :life-exp]))))
 
 
@@ -888,7 +888,7 @@
    {:data
     (tc/select-rows
      life-tracks
-     (fn* [p1__268581#] (= 2007 (:year p1__268581#)))),
+     (fn* [p1__137562#] (= 2007 (:year p1__137562#)))),
     :x :year,
     :y :life-exp,
     :text :country,
@@ -921,7 +921,7 @@
  (->
   (rdatasets/gapminder-gapminder)
   (tc/select-rows
-   (fn* [p1__268582#] (= "Rwanda" (:country p1__268582#))))
+   (fn* [p1__137563#] (= "Rwanda" (:country p1__137563#))))
   (pj/lay-line :year :life-exp {:color "#4477aa"})
   (pj/lay-point
    {:data {:year [1992], :life-exp [23.599]},
@@ -983,7 +983,7 @@
   ends-highest
   (->
    life-history
-   (tc/select-rows (fn* [p1__268583#] (= 2007 (:year p1__268583#))))
+   (tc/select-rows (fn* [p1__137564#] (= 2007 (:year p1__137564#))))
    (tc/order-by :life-exp :desc)
    (tc/rows :as-maps)
    first
@@ -1052,7 +1052,7 @@
    chosen
    (tc/select-rows
     life-history
-    (fn* [p1__268584#] (named (:country p1__268584#))))]
+    (fn* [p1__137565#] (named (:country p1__137565#))))]
   (->
    life-history
    (pj/lay-line :year :life-exp {:group :country, :color "#d0d0d0"})
@@ -1062,7 +1062,7 @@
     {:data
      (tc/select-rows
       chosen
-      (fn* [p1__268585#] (= 2007 (:year p1__268585#)))),
+      (fn* [p1__137566#] (= 2007 (:year p1__137566#)))),
      :x :year,
      :y :life-exp,
      :text :country,
@@ -1112,11 +1112,11 @@
       (every? (set (:texts s)) ["Japan" "Oman" "Rwanda"])
       (some
        (fn*
-        [p1__268586#]
-        (re-find #"^Rwanda, 1992: a fall of 20 years" p1__268586#))
+        [p1__137567#]
+        (re-find #"^Rwanda, 1992: a fall of 20 years" p1__137567#))
        (:texts s))
       (some
-       (fn* [p1__268587#] (= "142 countries, 1952-2007" p1__268587#))
+       (fn* [p1__137568#] (= "142 countries, 1952-2007" p1__137568#))
        (:texts s)))))
    v135_l777)))
 
@@ -1131,8 +1131,8 @@
    ys
    (map
     (fn*
-     [p1__268588#]
-     (+ (* 3 p1__268588#) 5 (* 2 (- (rng/drandom r) 0.5))))
+     [p1__137569#]
+     (+ (* 3 p1__137569#) 5 (* 2 (- (rng/drandom r) 0.5))))
     xs)]
   (->
    {:x xs, :y ys}
@@ -1492,7 +1492,7 @@
    (let
     [bs (byte-array 8)]
     (.read in bs)
-    (mapv (fn* [p1__268589#] (bit-and p1__268589# 255)) (vec bs))))))
+    (mapv (fn* [p1__137570#] (bit-and p1__137570# 255)) (vec bs))))))
 
 
 (deftest

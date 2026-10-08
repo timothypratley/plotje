@@ -444,7 +444,7 @@ composite-pose
             (pj/pose {:color :species})
             (pj/cross-matrix [:sepal-length :sepal-width]))
       b (-> iris
-            (pj/cross-matrix [:petal-length :petal-width]
+            (pj/cross-matrix [:sepal-length :sepal-width]
                              {:color :species}))]
   (= a b))
 

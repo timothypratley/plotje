@@ -224,7 +224,7 @@
       :panels
       first
       :layers
-      (filter (fn* [p1__271721#] (= :text (:mark p1__271721#))))
+      (filter (fn* [p1__140691#] (= :text (:mark p1__140691#))))
       first
       :style
       :align-x)))
@@ -596,7 +596,7 @@
     [fr]
     (let
      [radii
-      (fn* [p1__271722#] (sort (:sizes (pj/svg-summary p1__271722#))))
+      (fn* [p1__140692#] (sort (:sizes (pj/svg-summary p1__140692#))))
       now
       (radii fr)
       before

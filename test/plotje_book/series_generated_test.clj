@@ -1425,28 +1425,14 @@
 
 
 (def
- v233_l1138
- (try
-  (->
-   sales
-   (pj/pose [[:quarter :revenue] [:quarter :cost]])
-   (pj/lay-point :quarter [:revenue :cost]))
-  (catch clojure.lang.ExceptionInfo e (ex-message e))))
-
-
-(deftest
- t234_l1145
- (is
-  ((fn
-    [msg]
-    (and
-     (re-find #"composite pose" msg)
-     (re-find #"before arranging" msg)))
-   v233_l1138)))
+ v233_l1133
+ (pj/arrange
+  [(-> sales (pj/lay-line :quarter [:revenue :cost]))
+   (-> sales (pj/lay-line :quarter [:tax :units]))]))
 
 
 (def
- v236_l1161
+ v235_l1149
  (kind/table
   {:column-names ["written" "what it reports"],
    :row-vectors
@@ -1504,7 +1490,7 @@
 
 
 (deftest
- t237_l1189
+ t236_l1177
  (is
   ((fn
     [t]
@@ -1547,40 +1533,32 @@
         (->
          sales-by-region
          (pj/lay-bar :quarter [:revenue :outlet])))])))
-   v236_l1161)))
-
-
-(def v239_l1214 (-> sales (pj/lay-histogram [:revenue :cost])))
-
-
-(deftest
- t240_l1217
- (is ((fn [v] (= 2 (:panels (pj/svg-summary v)))) v239_l1214)))
+   v235_l1149)))
 
 
 (def
- v242_l1223
+ v238_l1202
  (->
   sales-by-region
   (pj/lay-line :quarter :revenue {:group [:region :outlet]})))
 
 
 (deftest
- t243_l1226
- (is ((fn [v] (= 4 (:lines (pj/svg-summary v)))) v242_l1223)))
+ t239_l1205
+ (is ((fn [v] (= 4 (:lines (pj/svg-summary v)))) v238_l1202)))
 
 
 (def
- v245_l1232
+ v241_l1211
  (-> sales (pj/lay-line :quarter :revenue {:stroke-dash [5 5]})))
 
 
 (deftest
- t246_l1235
+ t242_l1214
  (is
   ((fn
     [v]
     (let
      [s (pj/svg-summary v)]
      (and (= 1 (:panels s)) (= 1 (count (:dash-patterns s))))))
-   v245_l1232)))
+   v241_l1211)))
